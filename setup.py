@@ -19,8 +19,8 @@ def main():
 
         for donor, donations in donors:
             Donor.create(name=donor,
-                         total_donations=sum(donations),
-                         ave_donations=sum(donations) / len(donations))
+                         total=sum(donations),
+                         average=sum(donations) / len(donations))
 
         for donor, donations in donors:
             for donation in donations:

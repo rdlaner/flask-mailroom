@@ -19,8 +19,8 @@ class BaseModel(Model):
 class Donor(BaseModel):
     """This class defines individual donors."""
     name = CharField(primary_key=True, max_length=40)
-    total_donations = MoneyField()
-    ave_donations = MoneyField()
+    total = MoneyField()
+    average = MoneyField()
 
 
 class Donation(BaseModel):
