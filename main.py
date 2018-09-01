@@ -36,6 +36,12 @@ def login():
     return render_template('login.html', login_error=login_error)
 
 
+@app.route('/logout')
+def logout():
+    del session['user']
+    return redirect(url_for('home'))
+
+
 @app.route('/donations')
 def donations():
     donations = Donation.select()
@@ -53,18 +59,12 @@ def add_donation():
     if 'user' not in session:
         return redirect(url_for('login'))
 
+    donor = None
     if request.method == 'POST':
-        input_donor = request.form['donor']
         input_donation = request.form['donation']
 
-        # Create new donation in database
-        Donation.create(donor=input_donor, amount=input_donation)
-
-        # Assign new donation to donor
-        try:
-            donor = Donor.get(Donor.name == input_donor)
-        except Donor.DoesNotExist:
-            donor = Donor.create(name=input_donor, total=0, average=0)
+        Donation.create(donor=session['user'], amount=input_donation)
+        donor = Donor.get(Donor.name == session['user'])
 
         donor.total += decimal.Decimal(input_donation)
         donor.average = donor.total / len(donor.donations)
@@ -72,7 +72,7 @@ def add_donation():
 
         return redirect(url_for('home'))
 
-    return render_template('add_donation.html')
+    return render_template('add_donation.html', donor=donor)
 
 
 @app.route('/account', methods=['GET'])
