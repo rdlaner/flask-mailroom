@@ -14,7 +14,6 @@ def main():
               ('Bell Hooks', random.sample(range(100, 25000), 3))]
 
     with db:
-        db.execute_sql('PRAGMA foreign_keys = ON;')
         db.drop_tables([Donor, Donation])
         db.create_tables([Donor, Donation])
 
