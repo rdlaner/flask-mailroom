@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Main flask app"""
 import os
-import base64
 import decimal
 from flask import Flask, render_template, request, redirect, url_for, session
 from passlib.hash import pbkdf2_sha256
@@ -74,6 +73,15 @@ def add_donation():
         return redirect(url_for('home'))
 
     return render_template('add_donation.html')
+
+
+@app.route('/account', methods=['GET'])
+def account():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    donor = Donor.get(Donor.name == session['user'])
+    return render_template('account.html', donor=donor)
 
 
 if __name__ == '__main__':

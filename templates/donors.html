@@ -5,7 +5,7 @@
 {% block content %}
 <ul>
     {% for donor in donors %}
-        <li><b>{{ donor.name }}</b> - Total: ${{ donor.total }} - Average: ${{ '%0.2f'|format(donor.average) }}</li>
+        <li><b>{{ donor.name }}</b></li>
     {% endfor %}
 </ul>
 {% endblock content %}

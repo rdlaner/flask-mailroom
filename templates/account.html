@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block subtitle %}Donor Data - {{ donor.name }}{% endblock subtitle %}
+
+{% block content %}
+<b>Total Donations: </b>${{ donor.total }}
+<br>
+<b>Average Donations: </b>${{ '%0.2f'|format(donor.average) }}
+<br>
+<b>Donations:</b>
+<ul>
+    {% for donation in donor.donations %}
+        <li>${{ donation.amount }}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}
