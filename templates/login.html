@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block subtitle %}Login{% endblock subtitle %}
+
+{% block content %}
+    <form method="POST">
+        {% if login_error %}{{ login_error }}{% endif %}
+        <br>
+        <label for="username">Username: </label>
+        <input type="text" id="username" name="username" placeholder="username">
+        <br>
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password" placeholder="*******">
+        <br>
+        <input type="submit" value="Login">
+    </form>
+{% endblock content %}

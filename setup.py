@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Flask-Mailroom setup script"""
 import random
+from passlib.hash import pbkdf2_sha256
 from model import db, Donor, Donation
 
 
@@ -19,6 +20,7 @@ def main():
 
         for donor, donations in donors:
             Donor.create(name=donor,
+                         password=pbkdf2_sha256.hash('secret_password'),
                          total=sum(donations),
                          average=sum(donations) / len(donations))
 
