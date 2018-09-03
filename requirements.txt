@@ -6,4 +6,8 @@ MarkupSafe==1.0
 peewee==3.2.2
 psycopg2==2.7.4
 Werkzeug==0.14.1
-passlib==1.7.1
+bcrypt==3.1.4
+Flask-Bcrypt==0.7.1
+Flask-Login==0.4.1
+Flask-WTF==0.14.2
+WTForms==2.2.1
