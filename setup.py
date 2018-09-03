@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Flask-Mailroom setup script"""
 import random
-from passlib.hash import pbkdf2_sha256
+from flask_bcrypt import Bcrypt
 from model import db, Donor, Donation
 
 
@@ -16,10 +16,12 @@ def main():
     db.connect()
     db.drop_tables([Donor, Donation])
     db.create_tables([Donor, Donation])
+    bcrypt = Bcrypt()
 
     for donor, donations in donors:
         Donor.create(name=donor,
-                     password=pbkdf2_sha256.hash('secret_password'),
+                     email='.'.join(donor.lower().split()) + '@gmail.com',
+                     password=bcrypt.generate_password_hash('password'),
                      total=sum(donations),
                      average=sum(donations) / len(donations))
 

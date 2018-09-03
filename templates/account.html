@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block subtitle %}Donor Data - {{ donor.name }}{% endblock subtitle %}
+{% block subtitle %}{{ title }} - {{ donor.name }}{% endblock subtitle %}
 
 {% block content %}
 <b>Total Donations: </b>${{ donor.total }}

@@ -4,6 +4,7 @@ import os
 from functools import partial
 from peewee import Model, CharField, DecimalField, ForeignKeyField
 from playhouse.db_url import connect
+from flask_login import UserMixin
 
 db = connect(os.environ.get('DATABASE_URL', 'sqlite:///my_database.db'))
 MoneyField = partial(DecimalField, decimal_places=2)
@@ -16,10 +17,11 @@ class BaseModel(Model):
         database = db
 
 
-class Donor(BaseModel):
+class Donor(BaseModel, UserMixin):
     """This class defines individual donors."""
-    name = CharField(primary_key=True, max_length=40)
-    password = CharField(max_length=255)
+    name = CharField(primary_key=True, max_length=40, unique=True, null=False)
+    email = CharField(max_length=255, unique=True, null=False)
+    password = CharField(max_length=255, null=False)
     total = MoneyField()
     average = MoneyField()
 
