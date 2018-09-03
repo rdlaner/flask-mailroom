@@ -19,16 +19,22 @@ def main():
     bcrypt = Bcrypt()
 
     for donor, donations in donors:
-        Donor.create(name=donor,
-                     email='.'.join(donor.lower().split()) + '@gmail.com',
-                     password=bcrypt.generate_password_hash('password'),
-                     total=sum(donations),
-                     average=sum(donations) / len(donations))
+        try:
+            Donor.create(name=donor,
+                         email='.'.join(donor.lower().split()) + '@gmail.com',
+                         password=bcrypt.generate_password_hash('password'),
+                         total=sum(donations),
+                         average=sum(donations) / len(donations))
+        except:
+            db.rollback()
 
     for donor, donations in donors:
         for donation in donations:
-            Donation.create(donor=donor,
-                            amount=donation)
+            try:
+                Donation.create(donor=donor,
+                                amount=donation)
+            except:
+                db.rollback()
 
 
 if __name__ == '__main__':
